@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 
 public/nutrient-viewer-lib
+
+# Local Netlify folder
+.netlify
+netlify/functions/.env
