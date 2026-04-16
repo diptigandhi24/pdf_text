@@ -6,7 +6,7 @@ export default async () => {
     const db = client.db("pdf");
     const collection = db.collection("noted");
     const docs = await collection.find({}).toArray();
-
+    console.log("Annotation docs from Mongodb", docs);
     return new Response(JSON.stringify(docs), {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
