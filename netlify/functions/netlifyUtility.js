@@ -6,7 +6,7 @@ export function createMongoDbClient() {
   try {
     const client = new MongoClient(uri, {
       serverApi: {
-        version: ServerApiVersion.v1,
+        version: 0.1,
         strict: true,
         deprecationErrors: true,
       },
