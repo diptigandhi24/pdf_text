@@ -11,7 +11,6 @@ export function createMongoDbClient() {
         deprecationErrors: true,
       },
     });
-    console.log("printing mongodb clicnt", client);
     return client;
   } catch (error) {
     console.log("MongoDb error", error);
