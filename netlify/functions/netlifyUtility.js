@@ -1,4 +1,5 @@
-const { MongoClient, ServerApiVersion } = require("mongodb");
+// const { MongoClient, ServerApiVersion } = require("mongodb");
+import { MongoClient } from "mongodb";
 const uri = process.env.MONGO_URI;
 
 export function createMongoDbClient() {
