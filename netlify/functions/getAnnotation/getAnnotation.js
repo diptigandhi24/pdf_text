@@ -10,7 +10,7 @@ export default async () => {
     const docs = await collection.find({}).toArray();
     console.log("Annotation docs from Mongodb", docs);
     return new Response(JSON.stringify(docs), {
-      statusCode: 200,
+      status: 200,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
