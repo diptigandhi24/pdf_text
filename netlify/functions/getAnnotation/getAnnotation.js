@@ -2,6 +2,7 @@ import { createMongoDbClient } from "../netlifyUtility";
 const client = createMongoDbClient();
 
 export default async () => {
+  console.log("Inside Annotation funciton");
   try {
     await client.connect();
     const db = client.db("pdf");
