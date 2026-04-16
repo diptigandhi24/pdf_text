@@ -26,9 +26,7 @@ export default function App() {
         instanceRef.current = instance;
         let annotationList;
         try {
-          let annotationJson = await fetch(
-            "http://localhost:8888/.netlify/functions/getAnnotation",
-          );
+          let annotationJson = await fetch("/.netlify/functions/getAnnotation");
           annotationList = await annotationJson.json();
           console.log("Annotation List", annotationList);
         } catch (error) {
