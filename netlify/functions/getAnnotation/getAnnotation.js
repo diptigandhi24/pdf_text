@@ -12,6 +12,7 @@ export default async () => {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
+    console.log("getAnnotation Error", error);
     return new Response(error.toString(), {
       status: 500,
     });
