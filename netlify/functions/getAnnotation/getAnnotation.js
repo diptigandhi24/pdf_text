@@ -3,6 +3,7 @@ const client = createMongoDbClient();
 
 export default async () => {
   try {
+    await client.connect();
     const db = client.db("pdf");
     const collection = db.collection("noted");
     const docs = await collection.find({}).toArray();

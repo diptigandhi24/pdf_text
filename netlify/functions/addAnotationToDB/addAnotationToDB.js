@@ -12,6 +12,7 @@ export default async (request) => {
     // Send a ping to confirm a successful connection
     const db = client.db("pdf");
     const collection = db.collection("noted");
+
     const result = await collection.insertOne({ ...body });
 
     return Response.json({
