@@ -1,7 +1,7 @@
 // const { MongoClient, ServerApiVersion } = require("mongodb");
 import { MongoClient, ServerApiVersion } from "mongodb";
 const uri = process.env.MONGO_URI;
-console.log("Mongodb uri", uri);
+
 export function createMongoDbClient() {
   try {
     const client = new MongoClient(uri, {
@@ -11,6 +11,7 @@ export function createMongoDbClient() {
         deprecationErrors: true,
       },
     });
+    console.log("printing mongodb clicnt", client);
     return client;
   } catch (error) {
     console.log("MongoDb error", error);
