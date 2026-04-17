@@ -6,7 +6,7 @@ export default async () => {
   try {
     await client.connect();
     const db = client.db("pdf");
-    const collection = db.collection("noted");
+    const collection = db.collection("notes");
     const docs = await collection.find({}).toArray();
     console.log("Annotation docs from Mongodb", docs);
     return new Response(JSON.stringify(docs), {

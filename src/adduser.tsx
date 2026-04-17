@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 export default function AddUser({ displayBox, handleClose }) {
   console.log("AddUser component is loaded");
   return (

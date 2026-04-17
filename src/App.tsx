@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createNoteAnnotationFromBckend } from "./utility";
 import AddUser from "./adduser";
+import Cookies from "js-cookie";
 
 const customUI = {
   commentThread: (instance, id) => ({
@@ -45,6 +46,7 @@ export default function App() {
         ui: displayUi ? customUI : defaultUI,
       }).then(async (instance) => {
         instanceRef.current = instance;
+        instance.setAnnotationCreatorName("Aniket");
         let annotationList;
         try {
           let annotationJson = await fetch("/.netlify/functions/getAnnotation");
