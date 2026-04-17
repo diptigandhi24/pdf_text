@@ -23,9 +23,7 @@ export default function App() {
   const instanceRef = useRef(null);
   const isLoadingFromBackend = useRef(false);
 
-  let [displayUi, setDisplayUi] = useState(
-    Cookies.get("username") == undefined ? true : false,
-  );
+  let [displayUi, setDisplayUi] = useState(false);
   // let [displayUi, setDisplayUi] = useState(false);
   useEffect(() => {
     console.log("display UI useEffect", displayUi);
@@ -58,6 +56,9 @@ export default function App() {
         ui: displayUi ? customUI : defaultUI,
       }).then(async (instance) => {
         instanceRef.current = instance;
+        if (Cookies.get("username") == undefined) {
+          setDisplayUi(true);
+        }
 
         let annotationList;
         try {
@@ -70,19 +71,17 @@ export default function App() {
 
         // Listen for new annotations
         instance.addEventListener("annotations.create", (annotation) => {
-          console.log(
-            "isLoadingFromBackend.current",
-            isLoadingFromBackend.current,
-          );
           if (isLoadingFromBackend.current) return;
           console.log("Created:", annotation.toJS(), isLoadingFromBackend);
-          if (Cookies.get("username") == undefined) {
-            setDisplayUi(true);
+
+          if (Cookies.get("username") != undefined) {
+            console.log("userName is created");
           }
         });
 
         instance.addEventListener("annotations.update", (annotation) => {
           if (isLoadingFromBackend.current) return;
+
           console.log("Updated:", annotation.toJS()[0]);
           try {
             fetch("/.netlify/functions/addAnotationToDB", {
@@ -102,14 +101,12 @@ export default function App() {
           instance,
           isLoadingFromBackend,
         );
-        if (Cookies.get("username") != undefined) {
-          instance.setAnnotationCreatorName(Cookies.get("username"));
-        }
+        instance.setAnnotationCreatorName(Cookies.get("username"));
       });
     })();
 
     return () => NutrientViewer?.unload(container);
-  }, []);
+  }, [displayUi]);
 
   return (
     <div>
@@ -119,7 +116,6 @@ export default function App() {
           handleClose={() => {
             setDisplayUi(false);
           }}
-          pdfInstance={instanceRef.current}
         />
       ) : null}
     </div>

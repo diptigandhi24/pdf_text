@@ -1,16 +1,16 @@
 import Cookies from "js-cookie";
 import { useRef, useState } from "react";
 
-export default function AddUser({ handleClose, pdfInstance }) {
+export default function AddUser({ handleClose }) {
   const inputRef = useRef(null);
   const [isNameSaved, setNameSaved] = useState(false);
+
   function addNameToCookie() {
     const value = inputRef.current?.value;
     console.log("input name", value);
     Cookies.set("username", value);
-    console.log("Add user submit button");
+    console.log("Add user submit button", Cookies.get("username"));
     setNameSaved(true);
-    pdfInstance.setAnnotationCreatorName(value);
   }
   console.log("AddUser component is loaded");
   return (
