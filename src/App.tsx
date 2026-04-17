@@ -1,9 +1,29 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createNoteAnnotationFromBckend } from "./utility";
+import AddUser from "./adduser";
+
+const customUI = {
+  commentThread: (instance, id) => ({
+    render: () => {
+      const div = document.createElement("div");
+      console.log("Custom UI");
+      div.innerText = "Custom UI for admins";
+      div.style.padding = "10px";
+      div.style.backgroundColor = "lightblue";
+      return div;
+    },
+  }),
+};
+
+const defaultUI = {}; // Empty = use default Nutrient UI
+
 export default function App() {
   const containerRef = useRef(null);
   const instanceRef = useRef(null);
   const isLoadingFromBackend = useRef(false);
+
+  let [displayUi, setDisplayUi] = useState(false);
+
   useEffect(() => {
     const container = containerRef.current;
     let NutrientViewer;
@@ -22,6 +42,7 @@ export default function App() {
         baseUrl: `${window.location.protocol}//${window.location.host}/${
           import.meta.env.PUBLIC_URL ?? ""
         }`,
+        ui: displayUi ? customUI : defaultUI,
       }).then(async (instance) => {
         instanceRef.current = instance;
         let annotationList;
@@ -37,6 +58,7 @@ export default function App() {
         instance.addEventListener("annotations.create", (annotation) => {
           if (isLoadingFromBackend.current) return;
           console.log("Created:", annotation.toJS(), isLoadingFromBackend);
+          setDisplayUi(true);
         });
 
         instance.addEventListener("annotations.update", (annotation) => {
@@ -66,5 +88,17 @@ export default function App() {
     return () => NutrientViewer?.unload(container);
   }, []);
 
-  return <div ref={containerRef} style={{ width: "100%", height: "100vh" }} />;
+  return (
+    <div>
+      <div ref={containerRef} style={{ height: "100vh" }} />
+      {displayUi ? (
+        <AddUser
+          displayBox={displayUi}
+          handleClose={() => {
+            setDisplayUi(false);
+          }}
+        />
+      ) : null}
+    </div>
+  );
 }
