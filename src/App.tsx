@@ -23,7 +23,19 @@ export default function App() {
   const instanceRef = useRef(null);
   const isLoadingFromBackend = useRef(false);
 
-  let [displayUi, setDisplayUi] = useState(false);
+  let [displayUi, setDisplayUi] = useState(
+    Cookies.get("username") == undefined ? true : false,
+  );
+  // let [displayUi, setDisplayUi] = useState(false);
+  useEffect(() => {
+    console.log("display UI useEffect", displayUi);
+  }, [displayUi]);
+  console.log(
+    "Cookies right now",
+    Cookies.get("username"),
+    "displayState",
+    displayUi,
+  );
 
   useEffect(() => {
     const container = containerRef.current;
@@ -46,7 +58,7 @@ export default function App() {
         ui: displayUi ? customUI : defaultUI,
       }).then(async (instance) => {
         instanceRef.current = instance;
-        instance.setAnnotationCreatorName("Aniket");
+
         let annotationList;
         try {
           let annotationJson = await fetch("/.netlify/functions/getAnnotation");
@@ -58,9 +70,15 @@ export default function App() {
 
         // Listen for new annotations
         instance.addEventListener("annotations.create", (annotation) => {
+          console.log(
+            "isLoadingFromBackend.current",
+            isLoadingFromBackend.current,
+          );
           if (isLoadingFromBackend.current) return;
           console.log("Created:", annotation.toJS(), isLoadingFromBackend);
-          setDisplayUi(true);
+          if (Cookies.get("username") == undefined) {
+            setDisplayUi(true);
+          }
         });
 
         instance.addEventListener("annotations.update", (annotation) => {
@@ -84,6 +102,9 @@ export default function App() {
           instance,
           isLoadingFromBackend,
         );
+        if (Cookies.get("username") != undefined) {
+          instance.setAnnotationCreatorName(Cookies.get("username"));
+        }
       });
     })();
 
@@ -95,10 +116,10 @@ export default function App() {
       <div ref={containerRef} style={{ height: "100vh" }} />
       {displayUi ? (
         <AddUser
-          displayBox={displayUi}
           handleClose={() => {
             setDisplayUi(false);
           }}
+          pdfInstance={instanceRef.current}
         />
       ) : null}
     </div>

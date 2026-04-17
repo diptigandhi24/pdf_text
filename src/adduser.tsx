@@ -1,12 +1,20 @@
 import Cookies from "js-cookie";
+import { useRef, useState } from "react";
 
-export default function AddUser({ displayBox, handleClose }) {
+export default function AddUser({ handleClose, pdfInstance }) {
+  const inputRef = useRef(null);
+  const [isNameSaved, setNameSaved] = useState(false);
+  function addNameToCookie() {
+    const value = inputRef.current?.value;
+    console.log("input name", value);
+    Cookies.set("username", value);
+    console.log("Add user submit button");
+    setNameSaved(true);
+    pdfInstance.setAnnotationCreatorName(value);
+  }
   console.log("AddUser component is loaded");
   return (
-    <div
-      className="addUserBox"
-      style={{ display: displayBox ? "block" : "none" }}
-    >
+    <div className="addUserBox" style={{ display: "block" }}>
       <div className="parentAddUserBox">
         <div className="addUserForm">
           <div
@@ -25,6 +33,7 @@ export default function AddUser({ displayBox, handleClose }) {
           </div>
           <input
             type="text"
+            ref={inputRef}
             placeholder="Enter you name"
             style={{
               width: "80%",
@@ -36,6 +45,7 @@ export default function AddUser({ displayBox, handleClose }) {
             style={{
               display: "flex",
               alignItems: "flex-end",
+              flexDirection: "row",
               width: "100%",
               height: "100%",
             }}
@@ -48,9 +58,11 @@ export default function AddUser({ displayBox, handleClose }) {
                 backgroundColor: "orange",
                 padding: "10px",
               }}
+              onClick={() => addNameToCookie()}
             >
               Save the name
             </button>
+            {isNameSaved ? <p>Your name now saved</p> : ""}
           </div>
         </div>
       </div>

@@ -19,7 +19,7 @@ export async function createNoteAnnotationFromBckend(
         ...annotationObj.boundingBox,
       }),
       opacity: annotationObj.opacity,
-      creatorName: null,
+      creatorName: annotationObj.creatorName,
       lockedContents: false,
       readOnly: false,
       isAnonymous: false,
@@ -31,38 +31,8 @@ export async function createNoteAnnotationFromBckend(
       }),
     });
     await pdfInstance.create(annotation);
+    console.log("Adding");
   }
-  //   let annotation = new NutrientViewer.Annotations.NoteAnnotation({
-  //     id: "02KP8J59B0ZCNP325JSYM7DG3J",
-  //     name: "02KP8J59B0ZCNP325JSYM7DG3J",
-  //     pageIndex: 26,
-  //     boundingBox: new NutrientViewer.Geometry.Rect({
-  //       width: 36,
-  //       height: 36,
-  //       left: 54.33125000000001,
-  //       top: 472.960595703125,
-  //     }),
-  //     opacity: 1,
-  //     creatorName: null,
-  //     lockedContents: false,
-  //     readOnly: false,
-  //     isAnonymous: false,
-  //     rotation: 0,
-  //     text: {
-  //       format: "plain",
-  //       value: "this is just a second note",
-  //     },
-  //     icon: "COMMENT",
-  //     backgroundColor: new NutrientViewer.Color({
-  //       r: 255,
-  //       g: 216,
-  //       b: 63,
-  //       transparent: false,
-  //     }),
-  //   });
-  //   await pdfInstance.create(annotation);
   isLoadingFromBackend.current = false;
   console.log("after Annotation array", isLoadingFromBackend);
 }
-
-// function addAnnotationToDB(annoationObj) {}
