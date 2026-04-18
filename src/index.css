@@ -20,8 +20,8 @@
 }
 
 .addUserForm {
-  width: 30%;
-  height: 30%;
+  width: 50vw;
+  height: 30vh;
   background-color: rgba(225, 225, 225, 1);
   border: 1px solid black;
   display: flex;

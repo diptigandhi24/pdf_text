@@ -34,13 +34,14 @@ export default function AddUser({ handleClose }) {
           <input
             type="text"
             ref={inputRef}
-            placeholder="Enter you name"
+            placeholder="Enter your name"
             style={{
               width: "80%",
               height: "fit-content",
               padding: "10px",
             }}
           />
+          {isNameSaved ? <p>Your name now saved</p> : ""}
           <div
             style={{
               display: "flex",
@@ -60,9 +61,8 @@ export default function AddUser({ handleClose }) {
               }}
               onClick={() => addNameToCookie()}
             >
-              Save the name
+              Save
             </button>
-            {isNameSaved ? <p>Your name now saved</p> : ""}
           </div>
         </div>
       </div>
