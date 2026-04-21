@@ -9,8 +9,7 @@ import netlifyIdentity from "netlify-identity-widget";
 
 netlifyIdentity.init();
 // import AuthButton from "./components/authButton";
-import LoginModal from "./components/LoginModal";
-import AuthButton from "./components/authButton";
+import LoginModal from "./components/loginModal";
 import { useAuth } from "./hooks/useAuth";
 
 const customUI = {
