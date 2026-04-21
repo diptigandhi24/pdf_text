@@ -8,15 +8,24 @@ importers:
 
   .:
     dependencies:
+      '@netlify/identity':
+        specifier: ^1.0.0
+        version: 1.0.0
       '@nutrient-sdk/viewer':
         specifier: ^1.13.1
         version: 1.13.1
+      gotrue-js:
+        specifier: ^1.0.1
+        version: 1.0.1
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
       mongodb:
         specifier: ^7.1.1
         version: 7.1.1
+      netlify-identity-widget:
+        specifier: ^2.0.3
+        version: 2.0.3
       pspdfkit:
         specifier: ^2024.8.2
         version: 2024.8.2
@@ -36,6 +45,9 @@ importers:
       '@types/js-cookie':
         specifier: ^3.0.6
         version: 3.0.6
+      '@types/netlify-identity-widget':
+        specifier: ^1.9.7
+        version: 1.9.7
       '@types/node':
         specifier: ^24.12.2
         version: 24.12.2
@@ -227,6 +239,10 @@ packages:
       '@emnapi/core': ^1.7.1
       '@emnapi/runtime': ^1.7.1
 
+  '@netlify/identity@1.0.0':
+    resolution: {integrity: sha512-4jdmtgEWRk678AqmWhus7LuAkEaUgJyhmNDV570Aj2sVNkEW7pJiip84t5g2evKNE1KvAv3rIbcNYM53RL6dxQ==}
+    engines: {node: '>=22'}
+
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -361,6 +377,9 @@ packages:
   '@types/minimatch@6.0.0':
     resolution: {integrity: sha512-zmPitbQ8+6zNutpwgcQuLcsEpn/Cj54Kbn7L5pX0Os5kdWplB7xPgEh/g+SWOB/qmows2gpuCaPyduq8ZZRnxA==}
     deprecated: This is a stub types definition. minimatch provides its own type definitions, so you do not need this installed.
+
+  '@types/netlify-identity-widget@1.9.7':
+    resolution: {integrity: sha512-XUYrQmYuirJ3NheNG/MuZejhAALYVIZg3EmtWHYEwexMeKlW0e4FFIW3f8YWYWKOrn6B5s+IBjDSn7XszwQ+SA==}
 
   '@types/node@24.12.2':
     resolution: {integrity: sha512-A1sre26ke7HDIuY/M23nd9gfB+nrmhtYyMINbjI1zHJxYteKR6qSMX56FsmjMcDb3SMcjJg5BiRRgOCC/yBD0g==}
@@ -725,6 +744,9 @@ packages:
     resolution: {integrity: sha512-sSs4inE1FB2YQiymcmTv6NWENryABjUNPeWhOvmn4SjtKybglsyPZxFB3U1/+L1bYi0rNZDqCLlHyLYDl1Pq5A==}
     engines: {node: '>=8'}
 
+  gotrue-js@1.0.1:
+    resolution: {integrity: sha512-ZynwwM4bEo2y5yNWO3/Ynbx1AvQz9ONJSM9tB1jpooAvDPevGdvgeFP3NwM59FAlkd0szSkQRAhjINMkJSDfAQ==}
+
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
@@ -959,6 +981,10 @@ packages:
 
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
+
+  netlify-identity-widget@2.0.3:
+    resolution: {integrity: sha512-kJxVUp3frEEN5cON/JDZKiyKwXB5NaFIGmBjqhAbOPCr483g9yhdjBWkXmYX9g8S6lKOSYi98gF8ROCrUK7tvw==}
+    engines: {node: '>=20'}
 
   node-releases@2.0.37:
     resolution: {integrity: sha512-1h5gKZCF+pO/o3Iqt5Jp7wc9rH3eJJ0+nh/CIoiRwjRxde/hAHyLPXYN4V3CqKAbiZPSeJFSWHmJsbkicta0Eg==}
@@ -1433,6 +1459,10 @@ snapshots:
       '@tybys/wasm-util': 0.10.1
     optional: true
 
+  '@netlify/identity@1.0.0':
+    dependencies:
+      gotrue-js: 1.0.1
+
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -1527,6 +1557,8 @@ snapshots:
   '@types/minimatch@6.0.0':
     dependencies:
       minimatch: 10.2.5
+
+  '@types/netlify-identity-widget@1.9.7': {}
 
   '@types/node@24.12.2':
     dependencies:
@@ -1924,6 +1956,8 @@ snapshots:
       merge2: 1.4.1
       slash: 3.0.0
 
+  gotrue-js@1.0.1: {}
+
   graceful-fs@4.2.11: {}
 
   has-flag@4.0.0: {}
@@ -2087,6 +2121,8 @@ snapshots:
   nanoid@3.3.11: {}
 
   natural-compare@1.4.0: {}
+
+  netlify-identity-widget@2.0.3: {}
 
   node-releases@2.0.37: {}
 

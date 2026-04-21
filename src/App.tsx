@@ -1,7 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import { createNoteAnnotationFromBckend } from "./utility";
+import {
+  createNoteAnnotationFromBckend,
+  createHightlightAnnotationFromBckend,
+} from "./utility";
 import AddUser from "./adduser";
 import Cookies from "js-cookie";
+import netlifyIdentity from "netlify-identity-widget";
+
+netlifyIdentity.init();
+// import AuthButton from "./components/authButton";
+import LoginModal from "./components/LoginModal";
+import AuthButton from "./components/authButton";
+import { useAuth } from "./hooks/useAuth";
 
 const customUI = {
   commentThread: (instance, id) => ({
@@ -24,6 +34,7 @@ export default function App() {
   const isLoadingFromBackend = useRef(false);
 
   let [displayUi, setDisplayUi] = useState(false);
+  const { user, loading } = useAuth();
   // let [displayUi, setDisplayUi] = useState(false);
   useEffect(() => {
     console.log("display UI useEffect", displayUi);
@@ -72,11 +83,32 @@ export default function App() {
         // Listen for new annotations
         instance.addEventListener("annotations.create", (annotation) => {
           if (isLoadingFromBackend.current) return;
-          console.log("Created:", annotation.toJS(), isLoadingFromBackend);
 
-          if (Cookies.get("username") != undefined) {
-            console.log("userName is created");
-          }
+          annotation.forEach((annotation) => {
+            if (
+              annotation instanceof
+              NutrientViewer.Annotations.HighlightAnnotation
+            ) {
+              console.log("Highlight annotation", annotation.toJS());
+            } else if (
+              annotation instanceof NutrientViewer.Annotations.NoteAnnotation
+            ) {
+              console.log("Note annotation", annotation);
+            } else if (
+              annotation instanceof NutrientViewer.Annotations.TextAnnotation
+            ) {
+              console.log("Text annotation", annotation);
+            } else if (
+              annotation instanceof NutrientViewer.Annotations.InkAnnotation
+            ) {
+              console.log("Ink annotation", annotation);
+            } else if (
+              annotation instanceof NutrientViewer.Annotations.MarkupAnnotation
+            ) {
+              console.log("Other markup annotation", annotation);
+            }
+          });
+          console.log("Created:", annotation.toJS(), isLoadingFromBackend);
         });
 
         instance.addEventListener("annotations.update", (annotation) => {
@@ -96,11 +128,19 @@ export default function App() {
           }
         });
 
+        instance.addEventListener(
+          "annotations.delete",
+          (deletedAnnotations) => {
+            console.log(deletedAnnotations.toJS()); // Array of deleted annotation objects
+          },
+        );
+        // createHightlightAnnotationFromBckend(instance, isLoadingFromBackend);
         createNoteAnnotationFromBckend(
           annotationList,
           instance,
           isLoadingFromBackend,
         );
+        console.log("we can set User Annotation name here", user);
         instance.setAnnotationCreatorName(Cookies.get("username"));
       });
     })();
@@ -108,16 +148,20 @@ export default function App() {
     return () => NutrientViewer?.unload(container);
   }, [displayUi]);
 
-  return (
-    <div>
-      <div ref={containerRef} style={{ height: "100vh" }} />
-      {displayUi ? (
-        <AddUser
-          handleClose={() => {
-            setDisplayUi(false);
-          }}
-        />
-      ) : null}
-    </div>
-  );
+  if (!user) {
+    return <LoginModal />;
+  } else {
+    return (
+      <div>
+        <div ref={containerRef} style={{ height: "100vh" }} />
+        {displayUi ? (
+          <AddUser
+            handleClose={() => {
+              setDisplayUi(false);
+            }}
+          />
+        ) : null}
+      </div>
+    );
+  }
 }

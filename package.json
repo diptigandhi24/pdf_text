@@ -10,9 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@netlify/identity": "^1.0.0",
     "@nutrient-sdk/viewer": "^1.13.1",
+    "gotrue-js": "^1.0.1",
     "js-cookie": "^3.0.5",
     "mongodb": "^7.1.1",
+    "netlify-identity-widget": "^2.0.3",
     "pspdfkit": "^2024.8.2",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
@@ -21,6 +24,7 @@
   "devDependencies": {
     "@eslint/js": "^9.39.4",
     "@types/js-cookie": "^3.0.6",
+    "@types/netlify-identity-widget": "^1.9.7",
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
