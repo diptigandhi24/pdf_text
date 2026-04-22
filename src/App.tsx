@@ -4,6 +4,7 @@ import PdfViewer from "./components/pdfViewer";
 export default function App() {
   useEffect(() => {
     let NutrientViewer;
+    console.log("nutrient viewer Before");
     (async () => {
       // Lazy load the SDK module early
       NutrientViewer = await import("@nutrient-sdk/viewer");
@@ -15,6 +16,7 @@ export default function App() {
         }`,
       });
     })();
+    console.log("nutrient viewer After");
   }, []);
   return <PdfViewer />;
 }
