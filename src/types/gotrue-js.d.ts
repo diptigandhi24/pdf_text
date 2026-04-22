@@ -19,9 +19,8 @@ declare module "gotrue-js" {
   class GoTrue {
     constructor(options: GoTrueOptions);
     currentUser(): User | null;
-    loginExternalProvider(provider: string): void;
-    on(event: "login", cb: (user: User) => void): void;
-    on(event: "logout", cb: () => void): void;
+    // loginExternalProvider does NOT exist — removed
+    // .on() does NOT exist — removed
   }
 
   export default GoTrue;
