@@ -88,6 +88,7 @@ export function useAuth() {
       const currentUser = getCurrentUser();
       console.log("Hook consle", currentUser);
       if (currentUser) {
+        console.log("yes current user exist");
         setUser({
           id: currentUser.id,
           email: currentUser.email,
