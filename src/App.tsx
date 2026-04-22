@@ -150,59 +150,54 @@ export default function App() {
       });
     })();
 
-    // return () => NutrientViewer?.unload(container);
-    return () => {
-      if (NutrientViewer && container) {
-        NutrientViewer.unload(container);
-      }
-    };
+    return () => NutrientViewer?.unload(container);
   }, [displayUi]);
 
-  // if (!user) {
-  //   return <LoginModal loginWithGoogle={loginWithGoogle} />;
-  // } else {
-  //   return (
-  //     <div>
-  //       <div ref={containerRef} style={{ height: "100vh" }} />
-  //       {displayUi ? (
-  //         <AddUser
-  //           handleClose={() => {
-  //             setDisplayUi(false);
-  //           }}
-  //         />
-  //       ) : null}
-  //     </div>
-  //   );
-  // }
-  // if (loading) {
-  //   console.log("Loading UI");
-  //   return (
-  //     <div
-  //       style={{
-  //         height: "100vh",
-  //         display: "flex",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //         fontSize: "16px",
-  //         color: "#666",
-  //       }}
-  //     >
-  //       Loading...
-  //     </div>
-  //   );
-  // }
-
   if (!user) {
-    console.log("Loading user not defined UI");
     return <LoginModal loginWithGoogle={loginWithGoogle} />;
   } else {
-    console.log("Loading PDF UI");
-    // return (
-    //   <div>
-    //     <div ref={containerRef} style={{ height: "100vh" }} />
-    //     {displayUi ? <AddUser handleClose={() => setDisplayUi(false)} /> : null}
-    //   </div>
-    // );
-    return <div ref={containerRef} style={{ height: "100vh" }} />;
+    return (
+      <div>
+        <div ref={containerRef} style={{ height: "100vh" }} />
+        {displayUi ? (
+          <AddUser
+            handleClose={() => {
+              setDisplayUi(false);
+            }}
+          />
+        ) : null}
+      </div>
+    );
   }
+  // // if (loading) {
+  // //   console.log("Loading UI");
+  // //   return (
+  // //     <div
+  // //       style={{
+  // //         height: "100vh",
+  // //         display: "flex",
+  // //         justifyContent: "center",
+  // //         alignItems: "center",
+  // //         fontSize: "16px",
+  // //         color: "#666",
+  // //       }}
+  // //     >
+  // //       Loading...
+  // //     </div>
+  // //   );
+  // // }
+
+  // if (!user) {
+  //   console.log("Loading user not defined UI");
+  //   return <LoginModal loginWithGoogle={loginWithGoogle} />;
+  // } else {
+  //   console.log("Loading PDF UI");
+  //   // return (
+  //   //   <div>
+  //   //     <div ref={containerRef} style={{ height: "100vh" }} />
+  //   //     {displayUi ? <AddUser handleClose={() => setDisplayUi(false)} /> : null}
+  //   //   </div>
+  //   // );
+  //   return <div ref={containerRef} style={{ height: "100vh" }} />;
+  // }
 }
