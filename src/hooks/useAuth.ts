@@ -28,7 +28,7 @@ export function useAuth() {
     //    saved it to localStorage before this line
     const currentUser = getCurrentUser();
     console.log("Hook consle", currentUser);
-    setUser(currentUser as AuthUser | null);
+    setUser(currentUser);
     setLoading(false);
   }, []);
 

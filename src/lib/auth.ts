@@ -14,7 +14,10 @@ const auth = new GoTrue({
 // after Google OAuth redirect and saves user to localStorage
 export const handleAuthCallback = (): boolean => {
   const hash = window.location.hash;
-  if (!hash.includes("access_token")) return false;
+  if (!hash.includes("access_token")) {
+    console.log("hash doesn't include access token");
+    return false;
+  }
 
   const hashParams = new URLSearchParams(hash.substring(1));
   const accessToken = hashParams.get("access_token");
