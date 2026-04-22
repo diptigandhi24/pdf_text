@@ -30,23 +30,11 @@ export default function App() {
   const instanceRef = useRef(null);
   const isLoadingFromBackend = useRef(false);
 
-  let [displayUi, setDisplayUi] = useState(false);
   const { user, loading, loginWithGoogle } = useAuth(); // ← add loading
   console.log(
     "userName inside app from getUser function directly ",
     getCurrentUser()?.user_metadata.full_name,
     user,
-  );
-
-  // let [displayUi, setDisplayUi] = useState(false);
-  useEffect(() => {
-    console.log("display UI useEffect", displayUi);
-  }, [displayUi]);
-  console.log(
-    "Cookies right now",
-    Cookies.get("username"),
-    "displayState",
-    displayUi,
   );
 
   useEffect(() => {
@@ -67,12 +55,8 @@ export default function App() {
         baseUrl: `${window.location.protocol}//${window.location.host}/${
           import.meta.env.PUBLIC_URL ?? ""
         }`,
-        ui: displayUi ? customUI : defaultUI,
       }).then(async (instance) => {
         instanceRef.current = instance;
-        if (Cookies.get("username") == undefined) {
-          setDisplayUi(true);
-        }
 
         let annotationList;
         try {
@@ -143,7 +127,7 @@ export default function App() {
           instance,
           isLoadingFromBackend,
         );
-        instance.setAnnotationCreatorName(Cookies.get("username"));
+        instance.setAnnotationCreatorName(user?.user_metadata.full_name);
       });
     })();
 
@@ -153,7 +137,7 @@ export default function App() {
         NutrientViewer.unload(container);
       }
     };
-  }, [displayUi]);
+  }, [user]);
 
   // ✅ Correct order
   if (loading) {
@@ -178,7 +162,6 @@ export default function App() {
   return (
     <div>
       <div ref={containerRef} style={{ height: "100vh" }} />
-      {displayUi ? <AddUser handleClose={() => setDisplayUi(false)} /> : null}
     </div>
   );
 }
