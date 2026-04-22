@@ -149,13 +149,11 @@ export default function App() {
 
     // return () => NutrientViewer?.unload(container);
     return () => {
-      console.log;
       if (NutrientViewer && container) {
-        console.log("Nutrient unloading", NutrientViewer && container);
         NutrientViewer.unload(container);
       }
     };
-  }, [displayUi, user]);
+  }, [displayUi]);
 
   // ✅ Correct order
   if (loading) {
