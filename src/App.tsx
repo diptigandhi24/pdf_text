@@ -34,7 +34,7 @@ export default function App() {
   const isLoadingFromBackend = useRef(false);
 
   let [displayUi, setDisplayUi] = useState(false);
-  let { user, loginWithGoogle } = useAuth();
+  const { user, loading, loginWithGoogle } = useAuth(); // ← add loading
   console.log(
     "userName inside app from getUser function directly ",
     getCurrentUser()?.user_metadata.full_name,
@@ -153,20 +153,47 @@ export default function App() {
     return () => NutrientViewer?.unload(container);
   }, [displayUi]);
 
-  if (!user) {
-    return <LoginModal loginWithGoogle={loginWithGoogle} />;
-  } else {
+  // if (!user) {
+  //   return <LoginModal loginWithGoogle={loginWithGoogle} />;
+  // } else {
+  //   return (
+  //     <div>
+  //       <div ref={containerRef} style={{ height: "100vh" }} />
+  //       {displayUi ? (
+  //         <AddUser
+  //           handleClose={() => {
+  //             setDisplayUi(false);
+  //           }}
+  //         />
+  //       ) : null}
+  //     </div>
+  //   );
+  // }
+  if (loading) {
     return (
-      <div>
-        <div ref={containerRef} style={{ height: "100vh" }} />
-        {displayUi ? (
-          <AddUser
-            handleClose={() => {
-              setDisplayUi(false);
-            }}
-          />
-        ) : null}
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: "16px",
+          color: "#666",
+        }}
+      >
+        Loading...
       </div>
     );
   }
+
+  if (!user) {
+    return <LoginModal loginWithGoogle={loginWithGoogle} />;
+  }
+
+  return (
+    <div>
+      <div ref={containerRef} style={{ height: "100vh" }} />
+      {displayUi ? <AddUser handleClose={() => setDisplayUi(false)} /> : null}
+    </div>
+  );
 }
