@@ -148,7 +148,7 @@ export default function App() {
     })();
 
     return () => NutrientViewer?.unload(container);
-  }, [displayUi]);
+  }, [displayUi, user]);
 
   if (!user) {
     return <LoginModal />;
