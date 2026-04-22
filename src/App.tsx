@@ -169,23 +169,23 @@ export default function App() {
   //     </div>
   //   );
   // }
-  if (loading) {
-    console.log("Loading UI");
-    return (
-      <div
-        style={{
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          fontSize: "16px",
-          color: "#666",
-        }}
-      >
-        Loading...
-      </div>
-    );
-  }
+  // if (loading) {
+  //   console.log("Loading UI");
+  //   return (
+  //     <div
+  //       style={{
+  //         height: "100vh",
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //         fontSize: "16px",
+  //         color: "#666",
+  //       }}
+  //     >
+  //       Loading...
+  //     </div>
+  //   );
+  // }
 
   if (!user) {
     console.log("Loading user not defined UI");
