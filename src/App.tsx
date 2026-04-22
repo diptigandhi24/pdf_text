@@ -160,51 +160,30 @@ export default function App() {
     };
   }, [displayUi, user]);
 
-  if (!user) {
-    return <LoginModal loginWithGoogle={loginWithGoogle} />;
-  } else {
+  // ✅ Correct order
+  if (loading) {
     return (
-      <div>
-        <div ref={containerRef} style={{ height: "100vh" }} />
-        {displayUi ? (
-          <AddUser
-            handleClose={() => {
-              setDisplayUi(false);
-            }}
-          />
-        ) : null}
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        Loading...
       </div>
     );
   }
-  // // if (loading) {
-  // //   console.log("Loading UI");
-  // //   return (
-  // //     <div
-  // //       style={{
-  // //         height: "100vh",
-  // //         display: "flex",
-  // //         justifyContent: "center",
-  // //         alignItems: "center",
-  // //         fontSize: "16px",
-  // //         color: "#666",
-  // //       }}
-  // //     >
-  // //       Loading...
-  // //     </div>
-  // //   );
-  // // }
 
-  // if (!user) {
-  //   console.log("Loading user not defined UI");
-  //   return <LoginModal loginWithGoogle={loginWithGoogle} />;
-  // } else {
-  //   console.log("Loading PDF UI");
-  //   // return (
-  //   //   <div>
-  //   //     <div ref={containerRef} style={{ height: "100vh" }} />
-  //   //     {displayUi ? <AddUser handleClose={() => setDisplayUi(false)} /> : null}
-  //   //   </div>
-  //   // );
-  //   return <div ref={containerRef} style={{ height: "100vh" }} />;
-  // }
+  if (!user) {
+    return <LoginModal loginWithGoogle={loginWithGoogle} />;
+  }
+
+  return (
+    <div>
+      <div ref={containerRef} style={{ height: "100vh" }} />
+      {displayUi ? <AddUser handleClose={() => setDisplayUi(false)} /> : null}
+    </div>
+  );
 }
