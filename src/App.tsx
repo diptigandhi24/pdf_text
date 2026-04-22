@@ -34,7 +34,7 @@ export default function App() {
   const isLoadingFromBackend = useRef(false);
 
   let [displayUi, setDisplayUi] = useState(false);
-  let { user } = useAuth();
+  let { user, loginWithGoogle } = useAuth();
   console.log(
     "userName inside app from getUser function directly ",
     getCurrentUser()?.user_metadata.full_name,
@@ -154,7 +154,7 @@ export default function App() {
   }, [displayUi]);
 
   if (!getCurrentUser()?.user_metadata.full_name) {
-    return <LoginModal />;
+    return <LoginModal loginWithGoogle={loginWithGoogle} />;
   } else {
     return (
       <div>

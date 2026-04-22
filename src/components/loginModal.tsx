@@ -1,8 +1,4 @@
-import { useAuth } from "../hooks/useAuth";
-
-export default function LoginModal() {
-  const { loginWithGoogle } = useAuth();
-
+export default function LoginModal({ loginWithGoogle }) {
   return (
     // Backdrop
     <div
@@ -34,7 +30,7 @@ export default function LoginModal() {
         </p>
 
         <button
-          onClick={loginWithGoogle}
+          onClick={() => loginWithGoogle()}
           style={{
             display: "flex",
             alignItems: "center",
