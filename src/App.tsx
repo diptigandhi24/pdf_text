@@ -36,9 +36,9 @@ export default function App() {
   let [displayUi, setDisplayUi] = useState(false);
   console.log(
     "userName inside app from getUser function directly ",
-    getCurrentUser(),
+    getCurrentUser()?.user_metadata.full_name,
   );
-  const { user } = useAuth();
+  const { user } = useState(getCurrentUser()?.user_metadata.full_name);
 
   // let [displayUi, setDisplayUi] = useState(false);
   useEffect(() => {
