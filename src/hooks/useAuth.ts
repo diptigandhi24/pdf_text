@@ -29,7 +29,7 @@ const IDENTITY_URL = `${SITE_URL}/.netlify/identity`;
 export function useAuth() {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
-
+  globalThis.countEffect++;
   useEffect(() => {
     const hash = window.location.hash;
     console.log("hash exist inside useAuth", hash);

@@ -34,9 +34,11 @@ export default function App() {
   const isLoadingFromBackend = useRef(false);
 
   let [displayUi, setDisplayUi] = useState(false);
+  let { user } = useAuth();
   console.log(
     "userName inside app from getUser function directly ",
     getCurrentUser()?.user_metadata.full_name,
+    user,
   );
 
   // let [displayUi, setDisplayUi] = useState(false);
