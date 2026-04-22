@@ -195,8 +195,7 @@ export default function App() {
   if (!user) {
     console.log("Loading user not defined UI");
     return <LoginModal loginWithGoogle={loginWithGoogle} />;
-  }
-  if (!loading) {
+  } else {
     console.log("Loading PDF UI");
     // return (
     //   <div>
