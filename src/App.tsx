@@ -38,9 +38,6 @@ export default function App() {
     "userName inside app from getUser function directly ",
     getCurrentUser()?.user_metadata.full_name,
   );
-  const { user } = useState(getCurrentUser()?.user_metadata.full_name);
-
-  console.log("UserName debug", user);
 
   // let [displayUi, setDisplayUi] = useState(false);
   useEffect(() => {
@@ -157,7 +154,7 @@ export default function App() {
     return () => NutrientViewer?.unload(container);
   }, [displayUi]);
 
-  if (!user) {
+  if (!getCurrentUser()?.user_metadata.full_name) {
     return <LoginModal />;
   } else {
     return (
