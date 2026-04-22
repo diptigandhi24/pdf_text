@@ -158,7 +158,7 @@ export default function App() {
         NutrientViewer.unload(container);
       }
     };
-  }, [displayUi]);
+  }, [displayUi, user]);
 
   if (!user) {
     return <LoginModal loginWithGoogle={loginWithGoogle} />;
