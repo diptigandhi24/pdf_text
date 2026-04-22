@@ -144,7 +144,6 @@ export default function App() {
           instance,
           isLoadingFromBackend,
         );
-        console.log("we can set User Annotation name here", user);
         instance.setAnnotationCreatorName(Cookies.get("username"));
       });
     })();
