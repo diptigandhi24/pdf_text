@@ -7,6 +7,7 @@ import { getCurrentUser } from "../lib/auth";
 
 import LoginModal from "./loginModal";
 import { useAuth } from "../hooks/useAuth";
+import NutrientViewer from "@nutrient-sdk/viewer";
 
 export default function PdfViewer() {
   const containerRef = useRef(null);
@@ -23,14 +24,12 @@ export default function PdfViewer() {
   useEffect(() => {
     const container = containerRef.current;
     // let NutrientViewer;
-    // let SidebarMode;
 
     if (!user || !container) return;
 
     (async () => {
       //   {NutrientViewer , SidebarMode} = await import("@nutrient-sdk/viewer");
-      const { NutrientViewer, SidebarMode } =
-        await import("@nutrient-sdk/viewer");
+      //   NutrientViewer = await import("@nutrient-sdk/viewer");
 
       if (container) {
         NutrientViewer.unload(container);
@@ -46,9 +45,13 @@ export default function PdfViewer() {
           import.meta.env.PUBLIC_URL ?? ""
         }`,
         initialViewState: new NutrientViewer.ViewState({
+          sidebarMode: NutrientViewer.SidebarMode.ANNOTATIONS,
           sidebarOptions: {
             [NutrientViewer.SidebarMode.ANNOTATIONS]: {
-              includeContent: [NutrientViewer.Comment],
+              includeContent: [
+                ...NutrientViewer.defaultAnnotationsSidebarContent,
+                NutrientViewer.Comment,
+              ],
             },
           },
         }),
@@ -63,9 +66,6 @@ export default function PdfViewer() {
         } catch (error) {
           console.log("getAnnotation List error", error);
         }
-        instance.setViewState((viewState) =>
-          viewState.set("sidebarMode", SidebarMode.THUMBNAILS),
-        );
 
         // Listen for new annotations
         instance.addEventListener("annotations.create", (annotation) => {
