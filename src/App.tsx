@@ -190,13 +190,15 @@ export default function App() {
   if (!user) {
     console.log("Loading user not defined UI");
     return <LoginModal loginWithGoogle={loginWithGoogle} />;
-  } else {
+  }
+  if (!loading) {
     console.log("Loading PDF UI");
-    return (
-      <div>
-        <div ref={containerRef} style={{ height: "100vh" }} />
-        {displayUi ? <AddUser handleClose={() => setDisplayUi(false)} /> : null}
-      </div>
-    );
+    // return (
+    //   <div>
+    //     <div ref={containerRef} style={{ height: "100vh" }} />
+    //     {displayUi ? <AddUser handleClose={() => setDisplayUi(false)} /> : null}
+    //   </div>
+    // );
+    return <div ref={containerRef} style={{ height: "100vh" }} />;
   }
 }
