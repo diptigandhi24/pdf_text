@@ -27,6 +27,7 @@ export function useAuth() {
     // 2. Now read the user — works because handleAuthCallback
     //    saved it to localStorage before this line
     const currentUser = getCurrentUser();
+    console.log("Hook consle", currentUser);
     setUser(currentUser as AuthUser | null);
     setLoading(false);
   }, []);
