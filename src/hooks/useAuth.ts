@@ -32,7 +32,7 @@ export function useAuth() {
 
   useEffect(() => {
     const hash = window.location.hash;
-
+    console.log("hash exist inside useAuth", hash);
     if (hash.includes("access_token")) {
       try {
         const hashParams = new URLSearchParams(hash.substring(1));
@@ -88,7 +88,11 @@ export function useAuth() {
       const currentUser = getCurrentUser();
       console.log("Hook consle", currentUser);
       if (currentUser) {
-        console.log("yes current user exist");
+        console.log(
+          "yes current user exist",
+          "currentUser",
+          currentUser.user_metadata.full_name,
+        );
         setUser({
           id: currentUser.id,
           email: currentUser.email,
