@@ -22,12 +22,15 @@ export default function PdfViewer() {
 
   useEffect(() => {
     const container = containerRef.current;
-    let NutrientViewer;
+    // let NutrientViewer;
+    // let SidebarMode;
 
     if (!user || !container) return;
 
     (async () => {
-      NutrientViewer = await import("@nutrient-sdk/viewer");
+      //   {NutrientViewer , SidebarMode} = await import("@nutrient-sdk/viewer");
+      const { NutrientViewer, SidebarMode } =
+        await import("@nutrient-sdk/viewer");
 
       if (container) {
         NutrientViewer.unload(container);
@@ -42,6 +45,13 @@ export default function PdfViewer() {
         baseUrl: `${window.location.protocol}//${window.location.host}/${
           import.meta.env.PUBLIC_URL ?? ""
         }`,
+        initialViewState: new NutrientViewer.ViewState({
+          sidebarOptions: {
+            [NutrientViewer.SidebarMode.ANNOTATIONS]: {
+              includeContent: [NutrientViewer.Comment],
+            },
+          },
+        }),
       }).then(async (instance) => {
         instanceRef.current = instance;
 
@@ -53,6 +63,9 @@ export default function PdfViewer() {
         } catch (error) {
           console.log("getAnnotation List error", error);
         }
+        instance.setViewState((viewState) =>
+          viewState.set("sidebarMode", SidebarMode.THUMBNAILS),
+        );
 
         // Listen for new annotations
         instance.addEventListener("annotations.create", (annotation) => {
