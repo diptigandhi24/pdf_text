@@ -50,6 +50,7 @@ export default function App() {
   useEffect(() => {
     const container = containerRef.current;
     let NutrientViewer;
+    console.log("PDF useEffect for user exist", user);
 
     (async () => {
       NutrientViewer = await import("@nutrient-sdk/viewer");
