@@ -30,11 +30,14 @@ export function useAuth() {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
   globalThis.countEffect++;
+  console.log("Outside Effect", globalThis.countEffect, user);
   useEffect(() => {
     const hash = window.location.hash;
     console.log("hash exist inside useAuth", hash);
+    console.log("Inside Effect", globalThis.countEffect, user);
     if (hash.includes("access_token")) {
       try {
+        console.log("Inside try", globalThis.countEffect, user);
         const hashParams = new URLSearchParams(hash.substring(1));
         const accessToken = hashParams.get("access_token");
         const refreshToken = hashParams.get("refresh_token");
@@ -85,6 +88,7 @@ export function useAuth() {
       }
     } else {
       // Returning user — read from GoTrue/localStorage
+      console.log("Inside else", globalThis.countEffect, user);
       const currentUser = getCurrentUser();
       console.log("Hook consle", currentUser);
       if (currentUser) {
