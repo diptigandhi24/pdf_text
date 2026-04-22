@@ -42,7 +42,6 @@ export default function App() {
   // let [displayUi, setDisplayUi] = useState(false);
   useEffect(() => {
     console.log("display UI useEffect", displayUi);
-    console.log("Does user exist", user);
   }, [displayUi]);
   console.log(
     "Cookies right now",
@@ -54,7 +53,6 @@ export default function App() {
   useEffect(() => {
     const container = containerRef.current;
     let NutrientViewer;
-    console.log("PDF useEffect for user exist", user);
 
     (async () => {
       NutrientViewer = await import("@nutrient-sdk/viewer");
