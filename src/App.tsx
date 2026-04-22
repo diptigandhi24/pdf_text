@@ -3,6 +3,7 @@ import {
   createNoteAnnotationFromBckend,
   createHightlightAnnotationFromBckend,
 } from "./utility";
+import { getCurrentUser } from "./lib/auth";
 import AddUser from "./adduser";
 import Cookies from "js-cookie";
 import netlifyIdentity from "netlify-identity-widget";
@@ -33,7 +34,11 @@ export default function App() {
   const isLoadingFromBackend = useRef(false);
 
   let [displayUi, setDisplayUi] = useState(false);
-  const { user, loading } = useAuth();
+  console.log(
+    "userName inside app from getUser function directly ",
+    getCurrentUser(),
+  );
+  const { user } = useAuth();
 
   // let [displayUi, setDisplayUi] = useState(false);
   useEffect(() => {
