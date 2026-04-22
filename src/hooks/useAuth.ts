@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
-import { getCurrentUser, loginWithGoogle, logout, getToken } from "../lib/auth";
+import auth, {
+  getCurrentUser,
+  loginWithGoogle,
+  logout,
+  getToken,
+} from "../lib/auth";
 
 export interface AuthUser {
   id: string;
