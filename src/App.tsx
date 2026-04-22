@@ -40,6 +40,8 @@ export default function App() {
   );
   const { user } = useState(getCurrentUser()?.user_metadata.full_name);
 
+  console.log("UserName debug", user);
+
   // let [displayUi, setDisplayUi] = useState(false);
   useEffect(() => {
     console.log("display UI useEffect", displayUi);
