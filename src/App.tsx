@@ -153,7 +153,7 @@ export default function App() {
     return () => NutrientViewer?.unload(container);
   }, [displayUi]);
 
-  if (!getCurrentUser()?.user_metadata.full_name) {
+  if (!user.user_metadata.full_name) {
     return <LoginModal loginWithGoogle={loginWithGoogle} />;
   } else {
     return (
