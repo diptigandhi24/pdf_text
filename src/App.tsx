@@ -6,10 +6,7 @@ import {
 import { getCurrentUser } from "./lib/auth";
 import AddUser from "./adduser";
 import Cookies from "js-cookie";
-import netlifyIdentity from "netlify-identity-widget";
 
-netlifyIdentity.init();
-// import AuthButton from "./components/authButton";
 import LoginModal from "./components/loginModal";
 import { useAuth } from "./hooks/useAuth";
 
