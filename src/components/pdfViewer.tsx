@@ -1,36 +1,25 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import {
   createNoteAnnotationFromBckend,
   createHightlightAnnotationFromBckend,
 } from "../utility";
-import { getCurrentUser } from "../lib/auth";
-
 import LoginModal from "./loginModal";
 import { useAuth } from "../hooks/useAuth";
 import NutrientViewer from "@nutrient-sdk/viewer";
 
-export default function PdfViewer() {
+export default function PdfViewer({ documentBuffer, baseUrl }) {
   const containerRef = useRef(null);
   const instanceRef = useRef(null);
   const isLoadingFromBackend = useRef(false);
 
   const { user, loading, loginWithGoogle } = useAuth(); // ← add loading
-  console.log(
-    "userName inside app from getUser function directly ",
-    getCurrentUser()?.user_metadata.full_name,
-    user,
-  );
 
   useEffect(() => {
     const container = containerRef.current;
-    // let NutrientViewer;
 
     if (!user || !container) return;
 
     (async () => {
-      //   {NutrientViewer , SidebarMode} = await import("@nutrient-sdk/viewer");
-      //   NutrientViewer = await import("@nutrient-sdk/viewer");
-
       if (container) {
         NutrientViewer.unload(container);
       }
@@ -38,12 +27,14 @@ export default function PdfViewer() {
       await NutrientViewer.load({
         // Container where NutrientViewer should be mounted.
         container,
-        // The document to open.
-        document: "SGNP.pdf",
-        // Use the public directory URL as a base URL. NutrientViewer will download its library assets from here.
-        baseUrl: `${window.location.protocol}//${window.location.host}/${
-          import.meta.env.PUBLIC_URL ?? ""
-        }`,
+        // // The document to open.
+        // document: "SGNP.pdf",
+        // // Use the public directory URL as a base URL. NutrientViewer will download its library assets from here.
+        // baseUrl: `${window.location.protocol}//${window.location.host}/${
+        //   import.meta.env.PUBLIC_URL ?? ""
+        // }`,
+        document: documentBuffer,
+        baseUrl,
         initialViewState: new NutrientViewer.ViewState({
           sidebarMode: NutrientViewer.SidebarMode.ANNOTATIONS,
           sidebarOptions: {
@@ -56,9 +47,10 @@ export default function PdfViewer() {
           },
         }),
       }).then(async (instance) => {
-        instanceRef.current = instance;
+        instance !== null ? (instanceRef.current = instance) : null;
 
         let annotationList;
+
         try {
           let annotationJson = await fetch("/.netlify/functions/getAnnotation");
           annotationList = await annotationJson.json();
@@ -131,7 +123,6 @@ export default function PdfViewer() {
       });
     })();
 
-    // return () => NutrientViewer?.unload(container);
     return () => {
       if (NutrientViewer && container) {
         NutrientViewer.unload(container);
