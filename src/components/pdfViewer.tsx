@@ -19,7 +19,7 @@ export default function PdfViewer() {
 
     if (!user || !container) return;
 
-    if (user) {
+    if (user?.user_metadata.full_name !== null) {
       (async () => {
         if (container) {
           NutrientViewer.unload(container);
