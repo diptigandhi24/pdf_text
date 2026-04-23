@@ -130,7 +130,7 @@ export default function PdfViewer() {
         }
       };
     }
-  }, [user]);
+  }, []);
 
   // ✅ Correct order
   if (loading) {
