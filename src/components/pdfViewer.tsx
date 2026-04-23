@@ -7,7 +7,7 @@ import LoginModal from "./loginModal";
 import { useAuth } from "../hooks/useAuth";
 import NutrientViewer from "@nutrient-sdk/viewer";
 
-export default function PdfViewer({ documentBuffer, baseUrl }) {
+export default function PdfViewer() {
   const containerRef = useRef(null);
   const instanceRef = useRef(null);
   const isLoadingFromBackend = useRef(false);
@@ -27,14 +27,12 @@ export default function PdfViewer({ documentBuffer, baseUrl }) {
       await NutrientViewer.load({
         // Container where NutrientViewer should be mounted.
         container,
-        // // The document to open.
-        // document: "SGNP.pdf",
-        // // Use the public directory URL as a base URL. NutrientViewer will download its library assets from here.
-        // baseUrl: `${window.location.protocol}//${window.location.host}/${
-        //   import.meta.env.PUBLIC_URL ?? ""
-        // }`,
-        document: documentBuffer,
-        baseUrl,
+        // The document to open.
+        document: "SGNP.pdf",
+        // Use the public directory URL as a base URL. NutrientViewer will download its library assets from here.
+        baseUrl: `${window.location.protocol}//${window.location.host}/${
+          import.meta.env.PUBLIC_URL ?? ""
+        }`,
         initialViewState: new NutrientViewer.ViewState({
           sidebarMode: NutrientViewer.SidebarMode.ANNOTATIONS,
           sidebarOptions: {
