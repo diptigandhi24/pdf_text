@@ -25,6 +25,20 @@ export default function PdfViewer() {
         if (container) {
           NutrientViewer.unload(container);
         }
+        let annotationList;
+        let instantJSON;
+
+        try {
+          let annotationJson = await fetch("/.netlify/functions/getAnnotation");
+          annotationList = await annotationJson.json();
+          console.log("Annotation List", annotationList);
+          instantJSON = {
+            format: "https://pspdfkit.com/instant-json/v1",
+            annotations: annotationList,
+          };
+        } catch (error) {
+          console.log("getAnnotation List error", error);
+        }
         await NutrientViewer.load({
           // Container where NutrientViewer should be mounted.
           container,
@@ -34,6 +48,7 @@ export default function PdfViewer() {
           baseUrl: `${window.location.protocol}//${window.location.host}/${
             import.meta.env.PUBLIC_URL ?? ""
           }`,
+          instantJSON: instantJSON,
           initialViewState: new NutrientViewer.ViewState({
             sidebarMode: NutrientViewer.SidebarMode.ANNOTATIONS,
             sidebarOptions: {
@@ -47,18 +62,6 @@ export default function PdfViewer() {
           }),
         }).then(async (instance) => {
           instance !== null ? (instanceRef.current = instance) : null;
-
-          let annotationList;
-
-          try {
-            let annotationJson = await fetch(
-              "/.netlify/functions/getAnnotation",
-            );
-            annotationList = await annotationJson.json();
-            console.log("Annotation List", annotationList);
-          } catch (error) {
-            console.log("getAnnotation List error", error);
-          }
 
           // Listen for new annotations
           instance.addEventListener("annotations.create", (annotation) => {
@@ -116,11 +119,11 @@ export default function PdfViewer() {
             },
           );
           // createHightlightAnnotationFromBckend(instance, isLoadingFromBackend);
-          createNoteAnnotationFromBckend(
-            annotationList,
-            instance,
-            isLoadingFromBackend,
-          );
+          //   createNoteAnnotationFromBckend(
+          //     annotationList,
+          //     instance,
+          //     isLoadingFromBackend,
+          //   );
           instance.setAnnotationCreatorName(user?.user_metadata.full_name);
         });
       })();
