@@ -20,6 +20,7 @@ export default function PdfViewer() {
     if (!user || !container) return;
 
     if (user?.user_metadata.full_name !== null) {
+      console.log("User is not empty");
       (async () => {
         if (container) {
           NutrientViewer.unload(container);
